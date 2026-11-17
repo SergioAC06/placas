@@ -42,8 +42,10 @@ if (b.tipo === 'email'     && b.email)     return 'mailto:' + b.email;
 if (b.tipo === 'ubicacion' && b.direccion) return 'https://maps.google.com/?q=' + encodeURIComponent(b.direccion);
 return '#';
 }
-var inicial = String(CFG.negocio || '?').replace(/[^0-9A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]/g, '').trim()
-.split(/\s+/).slice(0, 2).map(function(w){ return w.charAt(0); }).join('').toUpperCase();
+var palabras = String(CFG.negocio || '?').replace(/[^0-9A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]/g, '').trim().split(/\s+/);
+var inicial = (palabras.length > 1
+? palabras.slice(0, 2).map(function(w){ return w.charAt(0); }).join('')
+: palabras[0].slice(0, 2)).toUpperCase();
 add('<header>'
 + '<div class="logo">'
 + (CFG.logo ? '<img src="' + esc(CFG.logo) + '" alt="' + esc(CFG.negocio) + '">'
